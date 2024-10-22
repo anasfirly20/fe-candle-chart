@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <section>
+    <section className="px-xl py-xs">
       <h1>HOMEPAGE</h1>
     </section>
   );
