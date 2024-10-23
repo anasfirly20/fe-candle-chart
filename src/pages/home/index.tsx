@@ -19,13 +19,13 @@ const HomePage = () => {
   const isError = status === "error";
 
   return (
-    <section className="px-xl pt-xs pb-md">
+    <section className="px-xl pt-xs pb-md max-sm:px-lg">
       <h1 className="text-3xl font-bold text-white/85 mb-sm ml-2 text-center">
         Candle Chart
       </h1>
-      <div className="space-y-8 bg-foreground p-10 rounded-xl">
-        <div className="flex justify-between items-center">
-          <div className="flex gap-5 w-5/6">
+      <div className="space-y-8 max-sm:space-y-5 bg-foreground p-sm max-sm:p-sm rounded-xl">
+        <div className="flex flex-wrap gap-y-3 justify-between items-center">
+          <div className="flex max-sm:justify-center gap-5 w-5/6 max-sm:w-full">
             <Tabs
               size="lg"
               aria-label="timeframe-options"
@@ -45,7 +45,7 @@ const HomePage = () => {
           <Select
             aria-label="pair-options"
             size="lg"
-            className="w-1/6"
+            className="w-1/6 max-sm:w-full"
             defaultSelectedKeys={["BTCUSDT"]}
             onChange={(e) => {
               handleFilterChange("symbol", e.target.value);
@@ -56,7 +56,7 @@ const HomePage = () => {
             ))}
           </Select>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap gap-y-3 justify-between items-center">
           <TradingPair filter={filter} />
           <PriceDisplay
             data={data}

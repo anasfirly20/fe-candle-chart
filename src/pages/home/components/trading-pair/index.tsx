@@ -25,8 +25,8 @@ export const TradingPair = (props: TradingPairProps) => {
   const icon = iconMap[pair as keyof typeof iconMap];
 
   return (
-    <div className="flex gap-2">
-      <div className="relative flex items-center">
+    <div className="flex flex-wrap gap-x-2 gap-y-3">
+      <div className="relative flex items-center max-sm:mx-auto">
         <img
           src={icon}
           alt={pair?.slice(0, -4)}

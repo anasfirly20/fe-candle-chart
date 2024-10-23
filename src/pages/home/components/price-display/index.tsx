@@ -15,6 +15,8 @@ export const PriceDisplay = (props: PriceDisplayProps) => {
   const latestCandle = data[data?.length - 1];
   const priceColor = latestCandle?.close > (previousClosePrice ?? 0);
 
+  const price = formatPrice(latestCandle?.close);
+
   return (
     <div className="flex flex-col gap-1.5">
       <Skeleton isLoaded={!isLoading} className="rounded-lg">
@@ -24,11 +26,11 @@ export const PriceDisplay = (props: PriceDisplayProps) => {
             priceColor ? "text-green-500" : "text-red-500"
           )}
         >
-          {formatPrice(latestCandle?.close)}
+          {price}
         </h1>
       </Skeleton>
       <Skeleton isLoaded={!isLoading} className="rounded-lg">
-        <p className="text-sm">≈ ${formatPrice(latestCandle?.close)}</p>
+        {price && <p className="text-sm">≈ ${price}</p>}
       </Skeleton>
     </div>
   );
