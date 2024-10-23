@@ -78,7 +78,10 @@ export const useCandleChartData = () => {
         setStatus("succcess");
       };
 
-      if (binanceSocket.readyState !== binanceSocket.CLOSED) {
+      if (
+        binanceSocket.readyState !== binanceSocket.CLOSED &&
+        filter.symbol !== "btcusdt"
+      ) {
         setStatus("loading");
       }
     };
