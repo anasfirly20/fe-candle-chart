@@ -1,7 +1,12 @@
+import { CandleChart } from "./components/candle-chart";
+import { useCandleChartData } from "./functions";
+
 const HomePage = () => {
+  const { data, filter } = useCandleChartData();
+
   return (
     <section className="px-xl py-xs">
-      <h1>HOMEPAGE</h1>
+      <CandleChart data={data} filter={filter} />
     </section>
   );
 };
