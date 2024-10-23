@@ -21,7 +21,7 @@ const HomePage = () => {
   return (
     <section className="px-xl pt-xs pb-md max-sm:px-lg">
       <h1 className="text-3xl font-bold text-white/85 mb-sm ml-2 text-center">
-        Candle Chart
+        Candlestick Chart
       </h1>
       <div className="space-y-8 max-sm:space-y-5 bg-foreground p-sm max-sm:p-sm rounded-xl">
         <div className="flex flex-wrap gap-y-3 justify-between items-center">
