@@ -38,7 +38,7 @@ export const CandleChart = (props: CandleChartProps) => {
         },
       },
       width: chartContainerRef?.current?.clientWidth,
-      height: 300,
+      height: 500,
     });
 
     const candlestickSeries = chart.addCandlestickSeries({

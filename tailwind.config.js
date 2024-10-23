@@ -5,7 +5,9 @@ export default {
     extend: {
       colors: {
         primary: "#016FEE",
-        background: "#181a1b"
+        background: "#24262D",
+        foreground: "#292B33",
+        grey: "#929192"
       },
       padding: {
         xs: "1vw",

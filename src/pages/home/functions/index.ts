@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { TCandleChartDataItem, TWebSocketKlineResponse } from "../types";
 
 export const useCandleChartData = () => {
@@ -8,6 +8,16 @@ export const useCandleChartData = () => {
     timeframe: "1h",
     symbol: "btcusdt",
   });
+
+  const handleFilterChange = useCallback(
+    (key: keyof typeof filter, value: string) => {
+      setFilter((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    },
+    []
+  );
 
   useEffect(() => {
     const binanceSocket = new WebSocket(
@@ -59,5 +69,6 @@ export const useCandleChartData = () => {
   return {
     data,
     filter,
+    handleFilterChange,
   };
 };
