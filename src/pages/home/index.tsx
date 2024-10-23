@@ -7,11 +7,13 @@ import { formatPair } from "@/utils";
 import { Tabs, Tab } from "@nextui-org/tabs";
 import { PAIRS } from "@/data";
 import { ErrorBoundary } from "react-error-boundary";
-import { IconsOverlap } from "./components/icons-overlap";
+import { TradingPair } from "./components/trading-pair";
 import { ErrorComponent } from "@/components/error-component";
+import { PriceDisplay } from "./components/price-display";
 
 const HomePage = () => {
-  const { data, filter, handleFilterChange, status } = useCandleChartData();
+  const { data, filter, handleFilterChange, status, previousClosePrice } =
+    useCandleChartData();
 
   const isLoading = status === "loading";
   const isError = status === "error";
@@ -19,7 +21,7 @@ const HomePage = () => {
   return (
     <section className="px-xl pt-xs pb-md">
       <h1 className="text-3xl font-bold text-white/85 mb-sm ml-2 text-center">
-        Crypto Trading Dashboard
+        Candle Chart
       </h1>
       <div className="space-y-8 bg-foreground p-10 rounded-xl">
         <div className="flex justify-between items-center">
@@ -54,24 +56,13 @@ const HomePage = () => {
             ))}
           </Select>
         </div>
-        <div className="flex gap-2">
-          <IconsOverlap filter={filter} />
-          <div className="flex gap-1">
-            <p>{formatPair(filter.symbol).toUpperCase()} Spot Trading Pair</p>
-            {"·"}
-            <p>{filter.timeframe}</p>
-            {"·"}
-            <p>Binance WS</p>
-          </div>
+        <div className="flex justify-between items-center">
+          <TradingPair filter={filter} />
+          <PriceDisplay data={data} previousClosePrice={previousClosePrice} />
         </div>
         {isError && <ErrorComponent showRetry />}
         {!isError && (
-          <ErrorBoundary
-            fallback={<ErrorComponent showRetry />}
-            onReset={() => {
-              console.log("reset");
-            }}
-          >
+          <ErrorBoundary fallback={<ErrorComponent showRetry />}>
             <CandleChart data={data} filter={filter} />
           </ErrorBoundary>
         )}

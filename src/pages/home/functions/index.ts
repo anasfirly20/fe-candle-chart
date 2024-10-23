@@ -10,6 +10,9 @@ export const useCandleChartData = () => {
     timeframe: "1h",
     symbol: "btcusdt",
   });
+  const [previousClosePrice, setPreviousClosePrice] = useState<number | null>(
+    null
+  );
 
   const handleFilterChange = useCallback(
     (key: keyof typeof filter, value: string) => {
@@ -44,6 +47,8 @@ export const useCandleChartData = () => {
 
         setData((prev) => {
           const lastCandle = prev[prev.length - 1];
+
+          setPreviousClosePrice(lastCandle ? lastCandle.close : null);
 
           // Merge if the new candle's time matches the last candle's time
           if (lastCandle && newCandle.time === lastCandle.time) {
@@ -92,5 +97,6 @@ export const useCandleChartData = () => {
     filter,
     handleFilterChange,
     status,
+    previousClosePrice,
   };
 };
