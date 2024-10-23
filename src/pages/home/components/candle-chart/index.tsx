@@ -67,7 +67,7 @@ export const CandleChart = (props: CandleChartProps) => {
       window.removeEventListener("resize", handleResize);
       chart.remove();
     };
-  }, [data]);
+  }, [data, filter?.symbol, filter?.timeframe]);
 
   return <div ref={chartContainerRef} />;
 };
