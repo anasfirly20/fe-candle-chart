@@ -36,37 +36,40 @@ export const useCandleChartData = () => {
 
       binanceSocket.onmessage = (event) => {
         const response: TWebSocketKlineResponse = JSON.parse(event.data);
+
         const KItem = response.k;
         const newCandle = {
-          open: +KItem.o,
-          high: +KItem.h,
-          low: +KItem.l,
-          close: +KItem.c,
-          time: +KItem.t,
+          open: +KItem?.o,
+          high: +KItem?.h,
+          low: +KItem?.l,
+          close: +KItem?.c,
+          time: +KItem?.t,
         };
 
         setData((prev) => {
           const lastCandle = prev[prev.length - 1];
+          setPreviousClosePrice(lastCandle ? lastCandle?.close : null);
 
-          setPreviousClosePrice(lastCandle ? lastCandle.close : null);
+          const existingCandle = prev.find(
+            (candle) => candle?.time === newCandle?.time
+          );
 
-          // Merge if the new candle's time matches the last candle's time
-          if (lastCandle && newCandle.time === lastCandle.time) {
+          if (existingCandle) {
             return prev.map((candle) => {
-              if (candle.time === newCandle.time) {
+              if (candle?.time === newCandle?.time) {
                 return {
                   ...candle,
-                  high: Math.max(candle.high, newCandle.high),
-                  low: Math.min(candle.low, newCandle.low),
-                  close: newCandle.close,
+                  high: Math.max(candle?.high, existingCandle?.high),
+                  low: Math.min(candle?.low, existingCandle?.low),
+                  close: newCandle?.close,
                 };
               }
               return candle;
             });
           }
 
-          // Otherwise, add the new candle to the data
-          return [...prev, newCandle];
+          const updatedData = [...prev, newCandle];
+          return updatedData.sort((a, b) => a?.time - b?.time);
         });
       };
 
@@ -86,6 +89,7 @@ export const useCandleChartData = () => {
       }
     };
 
+    setData([]);
     connectSocket();
 
     return () => {
@@ -93,7 +97,7 @@ export const useCandleChartData = () => {
         binanceSocket.close();
       }
     };
-  }, [filter.symbol, filter.timeframe]);
+  }, [filter?.symbol, filter?.timeframe]);
 
   return {
     data,
