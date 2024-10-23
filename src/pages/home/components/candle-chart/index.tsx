@@ -29,7 +29,6 @@ export const CandleChart = (props: CandleChartProps) => {
       localization: {
         timeFormatter: (timestamp: number) => {
           const date = new Date(timestamp);
-          // Format the date as "Wed 23 Oct '24"
           return `${date.toLocaleString("en-GB", {
             weekday: "short",
           })} ${date.getDate()} ${date.toLocaleString("en-GB", {

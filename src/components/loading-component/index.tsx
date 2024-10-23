@@ -4,7 +4,7 @@ type LoadingComponentProps = {
   className?: string;
 };
 
-const LoadingComponent = (props: LoadingComponentProps) => {
+export const LoadingComponent = (props: LoadingComponentProps) => {
   const { className } = props;
   return (
     <section
@@ -14,5 +14,3 @@ const LoadingComponent = (props: LoadingComponentProps) => {
     </section>
   );
 };
-
-export { LoadingComponent };

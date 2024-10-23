@@ -3,6 +3,9 @@ import { TCandleChartDataItem, TWebSocketKlineResponse } from "../types";
 
 export const useCandleChartData = () => {
   const [data, setData] = useState<TCandleChartDataItem[]>([]);
+  const [status, setStatus] = useState<"loading" | "succcess" | "error">(
+    "succcess"
+  );
   const [filter, setFilter] = useState({
     timeframe: "1h",
     symbol: "btcusdt",
@@ -62,13 +65,17 @@ export const useCandleChartData = () => {
         });
       };
 
-      binanceSocket.onerror = (error) => {
-        console.error("WebSocket error:", error);
+      binanceSocket.onerror = () => {
+        setStatus("error");
       };
 
       binanceSocket.onclose = () => {
-        console.log("WebSocket closed");
+        setStatus("succcess");
       };
+
+      if (binanceSocket.readyState !== binanceSocket.CLOSED) {
+        setStatus("loading");
+      }
     };
 
     connectSocket();
@@ -84,5 +91,6 @@ export const useCandleChartData = () => {
     data,
     filter,
     handleFilterChange,
+    status,
   };
 };
