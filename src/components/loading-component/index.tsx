@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { Spinner } from "@nextui-org/spinner";
 
 type LoadingComponentProps = {
   className?: string;
@@ -10,7 +11,7 @@ export const LoadingComponent = (props: LoadingComponentProps) => {
     <section
       className={cn("flex items-center justify-center min-h-screen", className)}
     >
-      <span className="spinner" />
+      <Spinner />
     </section>
   );
 };
