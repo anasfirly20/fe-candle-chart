@@ -58,7 +58,11 @@ const HomePage = () => {
         </div>
         <div className="flex justify-between items-center">
           <TradingPair filter={filter} />
-          <PriceDisplay data={data} previousClosePrice={previousClosePrice} />
+          <PriceDisplay
+            data={data}
+            previousClosePrice={previousClosePrice}
+            isLoading={isLoading}
+          />
         </div>
         {isError && <ErrorComponent showRetry />}
         {!isError && (

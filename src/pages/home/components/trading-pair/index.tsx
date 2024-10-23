@@ -4,6 +4,12 @@ import eth from "@/assets/eth.svg";
 import bnb from "@/assets/bnb.svg";
 import { formatPair } from "@/utils";
 
+const iconMap = {
+  btcusdt: btc,
+  ethusdt: eth,
+  bnbusdt: bnb,
+};
+
 type TradingPairProps = {
   filter: {
     symbol: string;
@@ -14,13 +20,8 @@ type TradingPairProps = {
 export const TradingPair = (props: TradingPairProps) => {
   const { filter } = props;
 
-  const pair = filter.symbol.toLowerCase();
+  const pair = filter?.symbol?.toLowerCase();
 
-  const iconMap = {
-    btcusdt: btc,
-    ethusdt: eth,
-    bnbusdt: bnb,
-  };
   const icon = iconMap[pair as keyof typeof iconMap];
 
   return (
@@ -28,7 +29,7 @@ export const TradingPair = (props: TradingPairProps) => {
       <div className="relative flex items-center">
         <img
           src={icon}
-          alt={pair.slice(0, -4)}
+          alt={pair?.slice(0, -4)}
           width={30}
           height={30}
           className={"z-10 border-3 border-foreground rounded-full"}
@@ -42,7 +43,7 @@ export const TradingPair = (props: TradingPairProps) => {
         />
       </div>
       <div className="flex gap-1">
-        <p>{formatPair(filter?.symbol).toUpperCase()} Spot Trading Pair</p>
+        <p>{formatPair(filter?.symbol)?.toUpperCase()} Spot Trading Pair</p>
         {"·"}
         <p>{filter?.timeframe}</p>
         {"·"}
