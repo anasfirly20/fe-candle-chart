@@ -47,9 +47,7 @@ const HomePage = () => {
             size="lg"
             className="w-1/6 max-sm:w-full"
             defaultSelectedKeys={["BTCUSDT"]}
-            onChange={(e) => {
-              handleFilterChange("symbol", e.target.value);
-            }}
+            onChange={(e) => handleFilterChange("symbol", e.target.value)}
           >
             {PAIRS.map((pair) => (
               <SelectItem key={pair}>{formatPair(pair)}</SelectItem>
