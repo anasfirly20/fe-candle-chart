@@ -1,7 +1,7 @@
 import { createChart, ColorType } from "lightweight-charts";
 import { useRef, useEffect } from "react";
 import { TCandleChartDataItem, TCandleChartData } from "../../types";
-import { formatPrice } from "@/utils";
+import { formatDateTime, formatPrice } from "@/utils";
 
 type CandleChartProps = {
   data: TCandleChartDataItem[];
@@ -27,14 +27,8 @@ export const CandleChart = (props: CandleChartProps) => {
         secondsVisible: false,
       },
       localization: {
-        timeFormatter: (timestamp: number) => {
-          const date = new Date(timestamp);
-          return `${date.toLocaleString("en-GB", {
-            weekday: "short",
-          })} ${date.getDate()} ${date.toLocaleString("en-GB", {
-            month: "short",
-          })} '${date.getFullYear().toString().slice(-2)}`;
-        },
+        timeFormatter: (timestamp: number) =>
+          formatDateTime(timestamp, filter.timeframe),
       },
       width: chartContainerRef?.current?.clientWidth,
       height: 500,
