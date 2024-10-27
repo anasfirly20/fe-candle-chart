@@ -1,4 +1,4 @@
-import { createChart, ColorType } from "lightweight-charts";
+import { createChart, ColorType, CrosshairMode } from "lightweight-charts";
 import { useRef, useEffect } from "react";
 import { TCandleChartDataItem, TCandleChartData } from "../../types";
 import { formatDateTime, formatPrice } from "@/utils";
@@ -25,6 +25,8 @@ export const CandleChart = (props: CandleChartProps) => {
       timeScale: {
         timeVisible: true,
         secondsVisible: false,
+        tickMarkFormatter: (timestamp: number) =>
+          new Date(timestamp).getDate().toString(),
       },
       localization: {
         timeFormatter: (timestamp: number) =>
@@ -32,6 +34,9 @@ export const CandleChart = (props: CandleChartProps) => {
       },
       width: chartContainerRef?.current?.clientWidth,
       height: 500,
+      crosshair: {
+        mode: CrosshairMode.Normal,
+      },
     });
 
     const candlestickSeries = chart.addCandlestickSeries({
